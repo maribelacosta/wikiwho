@@ -1,9 +1,8 @@
 wikiwho
 =======
-
 An algorithm to identify authorship in Wiki revisioned content.
 
-Instalation Requirements
+Installation Requirements
 ========================
 WikiWho has been tested on Mac OS X and Debian GNU/Linux, running on Python 2.7. 
 
@@ -14,7 +13,6 @@ following link:
 
 Contact
 =======
-
 * Fabian Floeck: fabian.floeck[.]kit.edu
 * Maribel Acosta: maribel.acosta[.]kit.edu
 
