@@ -11,6 +11,14 @@ These functions can be downloaded from the official Wikimedia Utilities reposito
 following link:
 * https://bitbucket.org/halfak/wikimedia-utilities
 
+Running WikiWho
+===============
+
+python Wikiwho.py -i <inputfile> [-rev <revision_id>]
+
+Example:
+python Wikiwho.py -i "../dataset2/List_of_decades.xml" -rev "462105925"
+
 Contact
 =======
 * Fabian Floeck: fabian.floeck[.]kit.edu
