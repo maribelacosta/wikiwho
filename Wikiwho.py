@@ -16,7 +16,8 @@ from structures.Sentence import Sentence
 from structures.Word import Word
 from structures import Text
 
-from sys import argv
+from sys import argv,exit
+import getopt
 
 from copy import deepcopy
 
@@ -514,14 +515,12 @@ def analyseWordsInSentences(unmatched_sentences_curr, unmatched_sentences_prev, 
 
 def printRevision(revision):
 
-    print "-------- Revision: ", revision.wikipedia_id
-    #print revision.content
-    #print "------------------------------------------"
-    text = ''
+    print "Printing authorhship for revision: ", revision.wikipedia_id
+    text = []
     authors = []
     for hash_paragraph in revision.ordered_paragraphs:
         #print hash_paragraph
-        text = ''
+        #text = ''
         
         p_copy = deepcopy(revision.paragraphs[hash_paragraph])
         paragraph = p_copy.pop(0)
@@ -535,27 +534,69 @@ def printRevision(revision):
             
             for word in sentence.words:
                 #print word
-                text = text + ' ' + unicode(word.value,'utf-8') + "@@" + str(word.revision) 
-                #text = text + ' ' + unicode(word.value,'utf-8')
+                #text = text + ' ' + unicode(word.value,'utf-8') + "@@" + str(word.revision) 
+                text.append(word.value)
                 authors.append(word.revision)
-        print text
-        #print authors
-        #print
+    print text
+    print authors
 
+def help():
+    print "WikiWho: An algorithm for detecting attribution of authorship in revisioned content"
+    print
+    print 'Usage: Wikiwho.py -i <inputfile> [-rev <revision_id>]'
+    print "-i --ifile File to analyze"
+    print "-rev --revision Revision to analyse. If not specified, the last revision is printed."
+    print "-h --help This help."
+
+
+def main(my_argv):
+    inputfile = ''
+    revision = None
+
+    if (len(my_argv) == 0):
+    	print 'Usage: Wikiwho.py -i <inputfile> [-rev <revision_id>]\n'
+    	exit(2)
+    elif (len(my_argv) <= 2):
+        try:
+            opts, args = getopt.getopt(my_argv,"i:",["ifile="])
+        except getopt.GetoptError:
+            print 'Usage: Wikiwho.py -i <inputfile> [-rev <revision_id>]\n'
+            exit(2)
+    else:
+        try:
+            opts, args = getopt.getopt(my_argv,"i:rev",["ifile=","revision="])
+        except getopt.GetoptError:
+            print 'Usage: Wikiwho.py -i <inputfile> [-rev <revision_id>]\n'
+            exit(2)
+    
+    for opt, arg in opts:
+        if opt in ('-h', "--help"):
+            help()
+            exit()
+        elif opt in ("-i", "--ifile"):
+            inputfile = arg
+        elif opt in ("-rev", "--revision"):
+            revision = arg
+         
+    return (inputfile,revision)
+   
 if __name__ == '__main__':
 
-    file_name = argv[1]
-    
-    time1 = time()
-    revisions = analyseArticle(file_name)
-    time2 = time()
-    
-    pos = file_name.rfind("/")
-    print file_name[pos+1: len(file_name)-len(".xml")], time2-time1
-    
-    #print revisions
-    #printRevision(revisions[574425926])
-    
-    
+	(file_name, revision) = main(argv[1:])
 
+	print "Calculating authorship for:", file_name 
+	time1 = time()
+	revisions = analyseArticle(file_name)
+	time2 = time()
+    
+	#pos = file_name.rfind("/")
+	#print file_name[pos+1: len(file_name)-len(".xml")], time2-time1
+    
+	if (revision != None):
+		printRevision(revisions[int(argv[2])])
+	else:
+		rev_ids = revisions.keys()
+		printRevision(revisions[max(rev_ids)])
+		
+	print "Execution time:", time2-time1 
     
