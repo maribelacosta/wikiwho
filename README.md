@@ -14,10 +14,23 @@ following link:
 Running WikiWho
 ===============
 
-python Wikiwho.py -i <inputfile> [-rev <revision_id>]
+python Wikiwho.py -i inputfile [-rev revision_id]
 
 Example:
-python Wikiwho.py -i "../dataset2/List_of_decades.xml" -rev "462105925"
+python Wikiwho.py -i "../example/Bioglass.xml" 
+
+Output
+------
+After running the provided example, the output of WikiWho looks like this:
+
+Calculating authorship for: /Users/maribelacosta/Desktop/dataset2/Bioglass.xml
+Printing authorhship for revision:  537791102
+['{{', 'disputed', '|', 'date', '=', 'february', '2012', '}}', (...)]
+[474609306, 474609306, 474612283, 474612283, 474612283, 474612283, 474612283, 474609306, (...)]
+Execution time: 0.855736017227
+
+The first array "token" corresponds to the analyzed tokens. The second array associates the tokens to their
+respective origin, e.g. origin[i] is the original label of token[i].
 
 Contact
 =======
