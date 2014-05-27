@@ -560,13 +560,13 @@ def main(my_argv):
         try:
             opts, args = getopt.getopt(my_argv,"i:",["ifile="])
         except getopt.GetoptError:
-            print 'Usage: Wikiwho.py -i <inputfile> [-rev <revision_id>]\n'
+            print 'Usage: Wikiwho.py -i <inputfile> [-r <revision_id>]\n'
             exit(2)
     else:
         try:
-            opts, args = getopt.getopt(my_argv,"i:rev",["ifile=","revision="])
+            opts, args = getopt.getopt(my_argv,"i:r:",["ifile=","revision="])
         except getopt.GetoptError:
-            print 'Usage: Wikiwho.py -i <inputfile> [-rev <revision_id>]\n'
+            print 'Usage: Wikiwho.py -i <inputfile> [-r <revision_id>]\n'
             exit(2)
     
     for opt, arg in opts:
@@ -575,7 +575,7 @@ def main(my_argv):
             exit()
         elif opt in ("-i", "--ifile"):
             inputfile = arg
-        elif opt in ("-rev", "--revision"):
+        elif opt in ("-r", "--revision"):
             revision = arg
          
     return (inputfile,revision)
