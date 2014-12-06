@@ -20,6 +20,9 @@ class Revision(object):
         self.ordered_paragraphs = [] # Ordered paragraph hash.
         self.length = 0              # Content length (bytes).
         self.content = ''            #TODO: this should be removed. Just for debugging process.
+        self.ordered_content = []    #TODO: this should be removed. Just for debugging process.
+        self.total_tokens = 0        # Number of tokens in the revision.
+        self.timestamp = 0
         
     def __repr__(self):
         return str(id(self))
