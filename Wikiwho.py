@@ -39,6 +39,7 @@ def analyseArticle(file_name):
     
     # Container of revisions.
     revisions = {}
+    revision_order = []
     
     # Revisions to compare.
     revision_curr = Revision()
@@ -108,7 +109,9 @@ def analyseArticle(file_name):
                     revisions.update({revision_curr.wikipedia_id : revision_curr})
                     # Update the fake revision id.
                     i = i+1
-                        
+                    # Update the index of processed revisions. 
+                    revision_order.append((revision_curr.wikipedia_id, False))
+                    
                 else:
                     #print "---------------------------- FLAG 2"
                     #print revision.getId()
@@ -116,9 +119,10 @@ def analyseArticle(file_name):
                     #print
                     revision_curr = revision_prev
                     spam.append(revision.getSha1())
+                    revision_order.append((revision_curr.wikipedia_id, True))
            
     
-    return revisions
+    return (revisions, revision_order)
             
 def determineAuthorship(revision_curr, revision_prev, text_curr):
     
@@ -554,8 +558,8 @@ def main(my_argv):
     revision = None
 
     if (len(my_argv) == 0):
-    	print 'Usage: Wikiwho.py -i <inputfile> [-rev <revision_id>]\n'
-    	exit(2)
+        print 'Usage: Wikiwho.py -i <inputfile> [-rev <revision_id>]\n'
+        exit(2)
     elif (len(my_argv) <= 2):
         try:
             opts, args = getopt.getopt(my_argv,"i:",["ifile="])
@@ -582,21 +586,25 @@ def main(my_argv):
    
 if __name__ == '__main__':
 
-	(file_name, revision) = main(argv[1:])
+    (file_name, revision) = main(argv[1:])
 
-	print "Calculating authorship for:", file_name 
-	time1 = time()
-	revisions = analyseArticle(file_name)
-	time2 = time()
+    print "Calculating authorship for:", file_name 
+    time1 = time()
+    (revisions, ordered_revisions) = analyseArticle(file_name)
+    time2 = time()
     
-	#pos = file_name.rfind("/")
-	#print file_name[pos+1: len(file_name)-len(".xml")], time2-time1
+    #pos = file_name.rfind("/")
+    #print file_name[pos+1: len(file_name)-len(".xml")], time2-time1
     
-	if (revision != None):
-		printRevision(revisions[int(argv[2])])
-	else:
-		rev_ids = revisions.keys()
-		printRevision(revisions[max(rev_ids)])
-		
-	print "Execution time:", time2-time1 
+    if (revision != None):
+        r = int(argv[4])
+        printRevision(revisions[r])
+    else:
+        for (rev, vandalism) in ordered_revisions:
+            if not(vandalism):
+                printRevision(revisions[rev])
+            else:
+                print "Revision ", rev, "was detected as vandalism."
+        
+    print "Execution time:", time2-time1 
     
