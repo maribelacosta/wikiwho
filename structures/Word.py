@@ -17,6 +17,10 @@ class Word(object):
         self.value = ''       # The word (simple text).
         self.matched = False  #
         self.length = 0
+        self.freq = []
+        self.deleted = []
+        self.internal_id = 0
+        self.used = []
         
     
     def __repr__(self):
