@@ -1,6 +1,6 @@
 wikiwho
 =======
-An algorithm to identify authorship in Wiki revisioned content.
+An algorithm to identify authorship and editor interactions in Wiki revisioned content.
 
 Installation Requirements
 ========================
@@ -11,38 +11,40 @@ These functions can be downloaded from the official Wikimedia Utilities reposito
 following link:
 * https://bitbucket.org/halfak/wikimedia-utilities
 
-Running WikiWho
+Running wikiwho(Relationships)
 ===============
 
-```python Wikiwho.py -i inputfile [-rev revision_id]```
+python WikiwhoRelationships.py 
+
+parameters: 
+
+-i \[source_file_name.xml\] (complete history dump XML of one article)
+
+-o [a | r] --> what type of output to produce --> a=authorship for all tokens of a revision | r= editor relations for a revision, built on a all edit interactions in the past
+
+-r [\<revid\> | all] --> what revision to show. revID or "all" for -o a, revID only for -o r 
+
+
+example A:
+
+python WikiwhoRelationships.py -i Randomarticle.xml -o a -r 5
+
+gives authorship for all tokens of revision 5 (has to be an actual revision id) of Randomarticle
+
+example B:
+
+python WikiwhoRelationships.py -i Randomarticle.xml -o r -r 5
+
+gives the edit interactions produced at every revision to other revisions, up to revision number 5 (has to be an actual revision id) of Randomarticle
+
+
+
 
 Contact
 =======
-* Fabian Floeck: fabian.floeck[.]gesis.org
+* Fabian Floeck: fabian.floeck[.]kit.edu
 * Maribel Acosta: maribel.acosta[.]kit.edu
 
 License
 =======
-This work is licensed under the MIT license.
-
-The MIT License (MIT)
-
-Copyright (c) 2014 Fabian Flöck, Maribel Acosta
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+This work is licensed under GNU/GPL v2.
