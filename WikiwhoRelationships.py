@@ -5,7 +5,7 @@ Created on Feb 20, 2013
 @author: Fabian Floeck
 '''
 
-from wmf import dump
+from mw.xml_dump import Iterator as mwIterator
 from difflib import Differ
 from time import time
 
@@ -53,66 +53,66 @@ def analyseArticle(file_name):
     text_curr = None
 
     # Access the file.
-    dumpIterator = dump.Iterator(file_name)
+    dumpIterator = mwIterator.from_file(open(file_name))
 
     # Iterate over the pages.
-    for page in dumpIterator.readPages():
+    for page in dumpIterator:
         i = 0
 
         # Iterate over revisions of the article.
-        for revision in page.readRevisions():
+        for revision in page:
             vandalism = False
 
-            #print("processing rev", revision.getId())
+            #print("processing rev", revision.Id())
 
             # Update the information about the previous revision.
             revision_prev = revision_curr
 
-            if (revision.getSha1() == None):
-                revision.setSha1(Text.calculateHash(revision.getText().encode("utf-8")))
+            if (revision.sha1 == None):
+                revision.sha1 = Text.calculateHash(revision.text.encode("utf-8"))
 
-            if (revision.getSha1() in spam):
+            if (revision.sha1 in spam):
                 vandalism = True
 
             #TODO: SPAM detection: DELETION
-            if (revision.getComment()!= None and revision.getComment().find(FLAG) > 0):
+            if (revision.comment!= None and revision.comment.find(FLAG) > 0):
                 pass
             else:
-                if (revision_prev.length > PREVIOUS_LENGTH) and (len(revision.getText()) < CURR_LENGTH) and (((len(revision.getText())-revision_prev.length)/float(revision_prev.length)) <= CHANGE_PERCENTAGE):
+                if (revision_prev.length > PREVIOUS_LENGTH) and (len(revision.text) < CURR_LENGTH) and (((len(revision.text)-revision_prev.length)/float(revision_prev.length)) <= CHANGE_PERCENTAGE):
                     vandalism = True
                     revision_curr = revision_prev
 
             #if (vandalism):
                 #print("---------------------------- FLAG 1")
-                #print("SPAM", revision.getId())
-                #print(revision.getText())
+                #print("SPAM", revision.id)
+                #print(revision.text)
                 #print()
 
             if (not vandalism):
                 # Information about the current revision.
                 revision_curr = Revision()
                 revision_curr.id = i
-                revision_curr.wikipedia_id = int(revision.getId())
-                revision_curr.length = len(revision.getText())
-                revision_curr.timestamp = revision.getTimestamp()
+                revision_curr.wikipedia_id = int(revision.id)
+                revision_curr.length = len(revision.text)
+                revision_curr.timestamp = revision.timestamp
 
                 # Relation of the current relation.
                 relation = Relation()
-                relation.revision = int(revision.getId())
-                relation.length = len(revision.getText())
+                relation.revision = int(revision.id)
+                relation.length = len(revision.text)
 
                 # Some revisions don't have contributor.
-                if (revision.getContributor() != None):
-                    revision_curr.contributor_id = revision.getContributor().getId()
-                    revision_curr.contributor_name = revision.getContributor().getUsername().encode('utf-8')
-                    relation.author = revision.getContributor().getUsername().encode('utf-8')
+                if (revision.contributor != None):
+                    revision_curr.contributor_id = revision.contributor.id
+                    revision_curr.contributor_name = revision.contributor.user_text.encode('utf-8')
+                    relation.author = revision.contributor.user_text.encode('utf-8')
                 else:
-                    revision_curr.contributor_id = 'Not Available ' + revision.getId()
-                    revision_curr.contribur_name = 'Not Available ' + revision.getId()
-                    relation.author = 'Not Available ' + revision.getId()
+                    revision_curr.contributor_id = 'Not Available ' + revision.id
+                    revision_curr.contribur_name = 'Not Available ' + revision.id
+                    relation.author = 'Not Available ' + revision.id
 
                 # Content within the revision.
-                text_curr = revision.getText().encode('utf-8')
+                text_curr = revision.text.encode('utf-8')
                 text_curr = text_curr.lower()
                 revision_curr.content = text_curr
 
@@ -121,7 +121,7 @@ def analyseArticle(file_name):
 
 
                 if (not vandalism):
-                    #print("NOT SPAM", revision.getId())
+                    #print("NOT SPAM", revision.id)
 
                     # Add the current revision with all the information.
                     revisions.update({revision_curr.wikipedia_id : revision_curr})
@@ -144,12 +144,12 @@ def analyseArticle(file_name):
 
                 else:
                     #print("---------------------------- FLAG 2")
-                    #print("SPAM", revision.getId())
-                    #print(revision.getText())
+                    #print("SPAM", revision.id)
+                    #print(revision.text)
                     #print()
                     revision_order.append((revision_curr.wikipedia_id, True))
                     revision_curr = revision_prev
-                    spam.append(revision.getSha1())
+                    spam.append(revision.sha1)
 
 
 

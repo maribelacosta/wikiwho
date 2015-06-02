@@ -6,7 +6,7 @@ Created on Feb 20, 2013
 @author: Andriy Rodchenko
 '''
 
-from wmf import dump
+from mw.xml_dump import Iterator as mwIterator
 from difflib import Differ
 from time import time
 
@@ -47,20 +47,20 @@ def analyseArticle(file_name):
     text_curr = None
 
     # Access the file.
-    dumpIterator = dump.Iterator(file_name)
+    dumpIterator = mwIterator.from_file(open(file_name))
 
     # Iterate over the pages.
-    for page in dumpIterator.readPages():
+    for page in dumpIterator:
         i = 0
 
         # Iterate over revisions of the article.
-        for revision in page.readRevisions():
+        for revision in page:
             vandalism = False
 
             # Update the information about the previous revision.
             revision_prev = revision_curr
 
-            if (revision.getSha1() == None):
+            if (revision.get("sha1") == None):
                 revision.setSha1(Text.calculateHash(revision.getText().encode("utf-8")))
 
             if (revision.getSha1() in spam):
