@@ -4,7 +4,7 @@ An algorithm to identify authorship and editor interactions in Wiki revisioned c
 
 Installation Requirements
 ========================
-WikiWho has been tested on Arch Linux, running on Python 3.4.3.
+WikiWho has been tested on Arch Linux running Python 3.4.3.
 
 WikiWho utilizes the Wikimedia Utilities library to process the revisioned content extracted from Wikipedia.
 These functions can be downloaded from the official Wikimedia Utilities repository (under the MIT license) at the
