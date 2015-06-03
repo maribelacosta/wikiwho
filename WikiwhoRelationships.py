@@ -41,9 +41,6 @@ WORD_DENSITY = 10
 WORD_LEN = 100
 
 def analyseArticle(file_name):
-
-
-
     # Container of relationships.
     relations = {}
 
@@ -140,8 +137,6 @@ def analyseArticle(file_name):
                     revision_curr.total_tokens = total
                     relation.total_tokens = total
 
-
-
                 else:
                     #print("---------------------------- FLAG 2")
                     #print("SPAM", revision.id)
@@ -150,8 +145,6 @@ def analyseArticle(file_name):
                     revision_order.append((revision_curr.wikipedia_id, True))
                     revision_curr = revision_prev
                     spam.append(revision.sha1)
-
-
 
     return (revisions, revision_order, relations)
 

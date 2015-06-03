@@ -5,17 +5,20 @@ Created on Feb 20, 2013
 '''
 
 import hashlib
+from codecs import encode, decode
 
 def calculateHash(text):
-    return hashlib.md5(text).hexdigest()
+    encodedText = encode(text)
+    return hashlib.md5(encodedText).hexdigest()
 
 
 def splitIntoParagraphs(text):
-    paragraphs = text.split("\n\n")
+    decodedText = decode(text)
+    paragraphs = decodedText.split("\n\n")
 
     return paragraphs
 
-    
+
 def splitIntoSentences(text):
     p = text
 
@@ -35,20 +38,20 @@ def splitIntoSentences(text):
     #p = p.replace('?[', '?||[')
     p = p.replace('<ref', '@@@@<ref')
     p = p.replace('/ref>', '/ref>@@@@')
-    
-    
+
+
     while '@@@@@@@@' in p :
         p = p.replace('@@@@@@@@', '@@@@')
 
     sentences = p.split('@@@@')
-        
+
     return sentences
 
 
 def splitIntoWords(text):
     p = text
     p = p.replace('|', '||@||')
-            
+
     p = p.replace('<', '||<').replace('>', '>||')
     p = p.replace('?', '?||').replace('!', '!||').replace('.[[', '.||[[').replace('\n', '||')
 
@@ -77,56 +80,56 @@ def splitIntoWords(text):
 
     words = filter(lambda a : a != '', p.split('||'))
     words = ['|' if w == '@' else w for w in words]
-        
+
     return words
-    
+
 
 def computeAvgWordFreq(text_list, revision_id=0):
-    
+
     d = {}
-    
+
     for elem in text_list:
-        if not (d.has_key(elem)):
+        if not elem in d:
             d.update({elem : text_list.count(elem)})
-    
-    if ('<' in d):        
+
+    if ('<' in d):
         del d['<']
-    
+
     if ('>' in d):
         del d['>']
-        
+
     if ('tr' in d):
         del d['tr']
-    
+
     if ('td' in d):
         del d['td']
-            
+
 #    if ('(' in d):
 #        del d['(']
-#        
+#
 #    if (')' in d):
 #        del d[')']
-        
+
     if ('[' in d):
         del d['[']
-        
+
     if (']' in d):
         del d[']']
-        
+
     if ('"' in d):
         del d['"']
-        
+
 #    if ('|' in d):
 #        del d['|']
-    
+
     if ('*' in d):
         del d['*']
 
     if ('==' in d):
         del d['==']
 
-    
-    if (len(d) > 0):                 
+
+    if (len(d) > 0):
         return sum(d.values())/float(len(d))
     else:
         return 0
