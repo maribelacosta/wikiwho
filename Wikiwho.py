@@ -74,12 +74,6 @@ def analyseArticle(file_name):
                     vandalism = True
                     revision_curr = revision_prev
 
-            #if (vandalism):
-                #print("---------------------------- FLAG 1")
-                #print(revision.id)
-                #print(revision.text)
-                #print()
-
             if (not vandalism):
                 # Information about the current revision.
                 revision_curr = Revision()
@@ -113,10 +107,6 @@ def analyseArticle(file_name):
                     revision_order.append((revision_curr.wikipedia_id, False))
 
                 else:
-                    #print("---------------------------- FLAG 2")
-                    #print(revision.id)
-                    #print(revision.text)
-                    #print()
                     revision_curr = revision_prev
                     spam.append(revision.sha1)
                     revision_order.append((revision_curr.wikipedia_id, True))
@@ -523,22 +513,13 @@ def printRevision(revision):
     text = []
     authors = []
     for hash_paragraph in revision.ordered_paragraphs:
-        #print(hash_paragraph)
-        #text = ''
-
         p_copy = deepcopy(revision.paragraphs[hash_paragraph])
         paragraph = p_copy.pop(0)
 
-        #print(paragraph.value)
-        #print(len(paragraph.sentences))
         for hash_sentence in paragraph.ordered_sentences:
-            #print(hash_sentence)
             sentence = paragraph.sentences[hash_sentence].pop(0)
-            #print(sentence.words)
 
             for word in sentence.words:
-                #print(word)
-                #text = text + ' ' + unicode(word.value,'utf-8') + "@@" + str(word.revision)
                 text.append(word.value)
                 authors.append(word.revision)
     print(text)
@@ -592,9 +573,6 @@ if __name__ == '__main__':
     time1 = time()
     (revisions, ordered_revisions) = analyseArticle(file_name)
     time2 = time()
-
-    #pos = file_name.rfind("/")
-    #print(file_name[pos+1: len(file_name)-len(".xml")], time2-time1)
 
     if (revision != None):
         r = int(argv[4])

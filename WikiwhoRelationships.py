@@ -60,8 +60,6 @@ def analyseArticle(file_name):
         for revision in page:
             vandalism = False
 
-            #print("processing rev", revision.Id())
-
             # Update the information about the previous revision.
             revision_prev = revision_curr
 
@@ -78,12 +76,6 @@ def analyseArticle(file_name):
                 if (revision_prev.length > PREVIOUS_LENGTH) and (len(revision.text) < CURR_LENGTH) and (((len(revision.text)-revision_prev.length)/float(revision_prev.length)) <= CHANGE_PERCENTAGE):
                     vandalism = True
                     revision_curr = revision_prev
-
-            #if (vandalism):
-                #print("---------------------------- FLAG 1")
-                #print("SPAM", revision.id)
-                #print(revision.text)
-                #print()
 
             if (not vandalism):
                 # Information about the current revision.
@@ -118,8 +110,6 @@ def analyseArticle(file_name):
 
 
                 if (not vandalism):
-                    #print("NOT SPAM", revision.id)
-
                     # Add the current revision with all the information.
                     revisions.update({revision_curr.wikipedia_id : revision_curr})
                     relations.update({revision_curr.wikipedia_id : relation})
@@ -138,10 +128,6 @@ def analyseArticle(file_name):
                     relation.total_tokens = total
 
                 else:
-                    #print("---------------------------- FLAG 2")
-                    #print("SPAM", revision.id)
-                    #print(revision.text)
-                    #print()
                     revision_order.append((revision_curr.wikipedia_id, True))
                     revision_curr = revision_prev
                     spam.append(revision.sha1)
@@ -182,7 +168,6 @@ def determineAuthorship(revision_curr, revision_prev, text_curr, relation):
 
     # Add the information of 'deletion' to words
     for unmatched_sentence in unmatched_sentences_prev:
-        #print("unmatched sentence", unmatched_sentence.value, revision_curr.wikipedia_id)
         for word_prev in unmatched_sentence.words:
             if not(word_prev.matched):
                 for elem in word_prev.deleted:
@@ -213,8 +198,6 @@ def determineAuthorship(revision_curr, revision_prev, text_curr, relation):
                                 relation.self_revert.update({elem: relation.self_revert[elem] +1})
                             else:
                                 relation.self_revert.update({elem: 1})
-
-                #print("relation.revert", word_prev.value, word_prev.deleted, relation.revert, revision_curr.wikipedia_id)
 
                 word_prev.deleted.append(revision_curr.wikipedia_id)
                 if (revisions[word_prev.revision].contributor_id != revision_curr.contributor_id):
@@ -523,7 +506,6 @@ def analyseSentencesInParagraphs(unmatched_paragraphs_curr, unmatched_paragraphs
                                                     relation.self_revert.update({elem : relation.self_revert[elem] + 1})
                                                 else:
                                                     relation.self_revert.update({elem : 1})
-                                #print("relation.revert", word_prev.value, word_prev.deleted, relation.revert, revision_curr.wikipedia_id)
 
                                 if (revision_prev.wikipedia_id not in word_prev.used):
                                     if (elem in revisions.keys()):
@@ -722,22 +704,13 @@ def printRevision(revision):
     text = []
     authors = []
     for hash_paragraph in revision.ordered_paragraphs:
-        #print(hash_paragraph)
-        #text = ''
-
         p_copy = deepcopy(revision.paragraphs[hash_paragraph])
         paragraph = p_copy.pop(0)
 
-        #print(paragraph.value)
-        #print(len(paragraph.sentences))
         for hash_sentence in paragraph.ordered_sentences:
-            #print(hash_sentence)
             sentence = paragraph.sentences[hash_sentence].pop(0)
-            #print(sentence.words)
 
             for word in sentence.words:
-                #print(word)
-                #text = text + ' ' + unicode(word.value,'utf-8') + "@@" + str(word.revision)
                 text.append(word.value)
                 authors.append(word.revision)
     print(text)
@@ -749,18 +722,12 @@ def printRevisionTrackAppearance(revision):
     text = []
     authors = []
     for hash_paragraph in revision.ordered_paragraphs:
-        #print(hash_paragraph)
-        #text = ''
 
         p_copy = deepcopy(revision.paragraphs[hash_paragraph])
         paragraph = p_copy.pop(0)
 
-        #print(paragraph.value)
-        #print(len(paragraph.sentences))
         for hash_sentence in paragraph.ordered_sentences:
-            #print(hash_sentence)
             sentence = paragraph.sentences[hash_sentence].pop(0)
-            #print(sentence.words)
 
             for word in sentence.words:
                 appeared = copy(word.used)
@@ -785,15 +752,9 @@ def printRevisionTrackAppearance(revision):
                             changes.append("+(" + str(a)+")")
                             break
 
-
-
-                #print(word.used)
-                #print(word.deleted)
                 print(unicode(word.value,'utf-8') + "@@" + str(word.revision)  + "@@" + str(changes))
                 text.append(word.value)
                 authors.append(word.revision)
-    #print(text)
-    #print(authors)
 
 def printRelationships(relations, order):
 
@@ -806,7 +767,6 @@ def printRelationships(relations, order):
         if (vandalism):
             continue
         relation = relations[revision]
-        #print(relation.author)
         print(str(relation.revision) + "\t" + (relation.author).decode("utf-8")   + "\t" + str(relation.deleted) + "\t" + str(relation.revert) + "\t" + str(relation.reintroduced)  + "\t" + str(relation.redeleted) + "\t" + str(relation.added)  + "\t"  +  str(relation.total_tokens) + "\t" + str(relation.self_deleted) + "\t" + str(relation.self_revert) + "\t" + str(relation.self_reintroduced) + "\t" + str(relation.self_redeleted))
 
 def printJSON(relations, order):
@@ -865,13 +825,9 @@ if __name__ == '__main__':
 
     (file_name, revision, output) = main(argv[1:])
 
-    #print("Calculating authorship for:", file_name)
     time1 = time()
     (revisions, order, relations) = analyseArticle(file_name)
     time2 = time()
-
-    #pos = file_name.rfind("/")
-    #print(file_name[pos+1: len(file_name)-len(".xml")], time2-time1)
 
     if (output == 'r'):
         printRelationships(relations, order)
@@ -882,9 +838,3 @@ if __name__ == '__main__':
             printAllRevisions(order, revisions)
         else:
             printRevision(revisions[int(revision)])
-
-    #print("Execution time:", time2-time1)
-
-
-
-
