@@ -92,7 +92,6 @@ def analyseArticle(file_name):
                 # Content within the revision.
                 text_curr = revision.text.encode('utf-8')
                 text_curr = text_curr.lower()
-                revision_curr.content = text_curr
 
                 # Perform comparison.
                 vandalism = determineAuthorship(revision_curr, revision_prev, text_curr)
