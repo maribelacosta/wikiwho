@@ -19,14 +19,12 @@ class Revision(object):
         self.paragraphs = {}         # Dictionary of paragraphs. It is of the form {paragraph_hash : [Paragraph]}.
         self.ordered_paragraphs = [] # Ordered paragraph hash.
         self.length = 0              # Content length (bytes).
-        self.content = ''            #TODO: this should be removed. Just for debugging process.
-        self.ordered_content = []    #TODO: this should be removed. Just for debugging process.
         self.total_tokens = 0        # Number of tokens in the revision.
         self.timestamp = 0
-        
+
     def __repr__(self):
         return str(id(self))
-    
+
     def to_dict(self):
         revision = {}
         #json_revision.update({'id' : revisions[revision].wikipedia_id})
@@ -39,6 +37,6 @@ class Revision(object):
             for paragraph in self.paragraphs[paragraph_hash]:
                 p.append(repr(paragraph))
             revision['obj'].append(p)
-            
+
         return revision
-    
+
