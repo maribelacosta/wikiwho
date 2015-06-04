@@ -4,9 +4,9 @@ An algorithm to identify authorship and editor interactions in Wiki revisioned c
 
 Installation Requirements
 ========================
-WikiWho has been tested on Mac OS X and Debian GNU/Linux, running on Python 2.7. 
+WikiWho has been tested on Arch Linux running Python 3.4.3.
 
-WikiWho utilizes the Wikimedia Utilities library to process the revisioned content extracted from Wikipedia. 
+WikiWho utilizes the Wikimedia Utilities library to process the revisioned content extracted from Wikipedia.
 These functions can be downloaded from the official Wikimedia Utilities repository (under the MIT license) at the
 following link:
 * https://bitbucket.org/halfak/wikimedia-utilities
@@ -14,15 +14,15 @@ following link:
 Running wikiwho(Relationships)
 ===============
 
-python WikiwhoRelationships.py 
+python WikiwhoRelationships.py
 
-parameters: 
+parameters:
 
 -i \[source_file_name.xml\] (complete history dump XML of one article)
 
 -o [a | r] --> what type of output to produce --> a=authorship for all tokens of a revision | r= interactions for every revision with each other revision in the past. I.e., this will list you all revisions and for each type of interaction we defined (delete, undelete, reintro, ..) the revisions that were target of that interaction and the number of tokens that interaction included. We will soon provide code that will spit put a more aggregated version of this as an editor-editor network. Yet, from the output available right now, you can already construct such a network yourself by summing up the positive and/or negative interactions between two editors over the whole revision history or a part of it.
 
--r [\<revid\> | all] --> what revision to show. revID or "all" for -o a, revID only for -o r 
+-r [\<revid\> | all] --> what revision to show. revID or "all" for -o a, revID only for -o r
 
 
 example A:
@@ -36,8 +36,6 @@ example B:
 python WikiwhoRelationships.py -i Randomarticle.xml -o r -r 5
 
 gives the edit interactions produced at every revision to other revisions, up to revision number 5 (has to be an actual revision id) of Randomarticle
-
-
 
 
 Contact
