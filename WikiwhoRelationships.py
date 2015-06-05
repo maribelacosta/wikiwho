@@ -289,14 +289,7 @@ def analyseParagraphsInRevision(revision_curr, revision_prev, text_curr, relatio
                                 #else:
                                 #    relation.reintroduced.update({word_prev.revision : 1 })
 
-                    # Add paragraph to current revision.
-                    if (hash_curr in revision_curr.paragraphs.keys()):
-                        revision_curr.paragraphs[paragraph_prev.hash_value].append(paragraph_prev)
-                        revision_curr.ordered_paragraphs.append(paragraph_prev.hash_value)
-                    else:
-                        revision_curr.paragraphs.update({paragraph_prev.hash_value : [paragraph_prev]})
-                        revision_curr.ordered_paragraphs.append(paragraph_prev.hash_value)
-
+                    addParagraphs(revision_curr, revision_prev, hash_curr, paragraph_prev)
                     break
 
 
@@ -353,14 +346,7 @@ def analyseParagraphsInRevision(revision_curr, revision_prev, text_curr, relatio
                                             else:
                                                 relation.self_reintroduced.update({word_prev.revision : 1})
 
-                    # Add paragraph to current revision.
-                    if (hash_curr in revision_curr.paragraphs.keys()):
-                        revision_curr.paragraphs[paragraph_prev.hash_value].append(paragraph_prev)
-                        revision_curr.ordered_paragraphs.append(paragraph_prev.hash_value)
-                    else:
-                        revision_curr.paragraphs.update({paragraph_prev.hash_value : [paragraph_prev]})
-                        revision_curr.ordered_paragraphs.append(paragraph_prev.hash_value)
-
+                    addParagraphs(revision_curr, revision_prev, hash_curr, paragraph_prev)
                     break
 
         # If the paragraph did not match with previous revisions,
@@ -388,6 +374,14 @@ def analyseParagraphsInRevision(revision_curr, revision_prev, text_curr, relatio
 
     return (unmatched_paragraphs_curr, unmatched_paragraphs_prev, matched_paragraphs_prev)
 
+def addParagraphs(revision_curr, revision_prev, hash_curr, paragraph_prev):
+    # Add paragraph to current revision.
+    if (hash_curr in revision_curr.paragraphs.keys()):
+        revision_curr.paragraphs[paragraph_prev.hash_value].append(paragraph_prev)
+        revision_curr.ordered_paragraphs.append(paragraph_prev.hash_value)
+    else:
+        revision_curr.paragraphs.update({paragraph_prev.hash_value : [paragraph_prev]})
+        revision_curr.ordered_paragraphs.append(paragraph_prev.hash_value)
 
 def analyseSentencesInParagraphs(unmatched_paragraphs_curr, unmatched_paragraphs_prev, revision_curr, revision_prev, relation):
 
