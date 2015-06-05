@@ -184,8 +184,6 @@ def determineAuthorship(revision_curr, revision_prev, text_curr, relation):
 
                 # Revert: deleting something that somebody else reintroduced.
                 for elem in word_prev.freq:
-                    #if (revision_curr.wikipedia_id == 11):
-                    #    print("Revert in 11", word_prev.value, word_prev.deleted, relation.revert)
                     if (elem != revision_curr.wikipedia_id) and (elem in revisions.keys()):
                         if (revisions[elem].contributor_id != revision_curr.contributor_id):
                             if (elem in relation.revert.keys()):
@@ -284,11 +282,6 @@ def analyseParagraphsInRevision(revision_curr, revision_prev, text_curr, relatio
                                 word_prev.matched = True
                                 word_prev.used.append(revision_curr.wikipedia_id)
 
-                                #if (word_prev.revision in relation.reintroduced.keys()):
-                                #    relation.reintroduced.update({word_prev.revision : relation.reintroduced[word_prev.revision] + 1 })
-                                #else:
-                                #    relation.reintroduced.update({word_prev.revision : 1 })
-
                     addParagraphs(revision_curr, revision_prev, hash_curr, paragraph_prev)
                     break
 
@@ -316,8 +309,6 @@ def analyseParagraphsInRevision(revision_curr, revision_prev, text_curr, relatio
                                 # Revert: reintroducing something that somebody else deleted,
                                 # (and was not used in the previous revision)
                                 if (revision_prev.wikipedia_id not in word_prev.used):
-                                    #if (revision_curr.wikipedia_id == 11):
-                                    #    print("Revert in 11", word_prev.value, word_prev.deleted, relation.revert)
 
                                     for elem in word_prev.deleted:
                                         if (elem in revisions.keys()):
@@ -435,10 +426,6 @@ def analyseSentencesInParagraphs(unmatched_paragraphs_curr, unmatched_paragraphs
                                     word_prev.matched = True
                                     word_prev.used.append(revision_curr.wikipedia_id)
 
-                                    #if (word_prev.revision in relation.reintroduced.keys()):
-                                    #    relation.reintroduced.update({word_prev.revision : relation.reintroduced[word_prev.revision] + 1 })
-                                    #else:
-                                    #    relation.reintroduced.update({word_prev.revision : 1 })
 
                                 # Add the sentence information to the paragraph.
                                 if (hash_curr in paragraph_curr.sentences.keys()):
@@ -486,8 +473,7 @@ def analyseSentencesInParagraphs(unmatched_paragraphs_curr, unmatched_paragraphs
                                 # Revert: reintroducing something that somebody else deleted
                                 if (revision_prev.wikipedia_id not in word_prev.used):
                                     for elem in word_prev.deleted:
-                                        #if (revision_curr.wikipedia_id == 11):
-                                        #    print("Revert in 11", word_prev.value, word_prev.deleted, relation.revert)
+
                                         if (elem in revisions.keys()):
                                             if (revisions[elem].contributor_id != revision_curr.contributor_id):
                                                 if (elem in relation.revert.keys()):
@@ -629,10 +615,6 @@ def analyseWordsInSentences(unmatched_sentences_curr, unmatched_sentences_prev, 
                                 matched_words_prev.append(word_prev)
                                 diff[pos] = ''
                                 pos = len(diff)+1
-                                #if (word_prev.revision in relation.reintroduced.keys()):
-                                #    relation.reintroduced.update({word_prev.revision : relation.reintroduced[word_prev.revision] + 1 })
-                                #else:
-                                #    relation.reintroduced.update({word_prev.revision : 1 })
 
                                 break
 
