@@ -674,10 +674,10 @@ def printAllRevisions(order, revisions):
 
 
 def printRevision(revision):
-    """Print all text that was introduced in this revision."""
 
     print("Printing authorhship for revision: ", revision.wikipedia_id)
     text = []
+    authors = []
     for hash_paragraph in revision.ordered_paragraphs:
         p_copy = deepcopy(revision.paragraphs[hash_paragraph])
         paragraph = p_copy.pop(0)
@@ -686,9 +686,10 @@ def printRevision(revision):
             sentence = paragraph.sentences[hash_sentence].pop(0)
 
             for word in sentence.words:
-                if word.revision is revision.wikipedia_id:
-                    text.append(word.value)
-    print(" ".join(text))
+                text.append(word.value)
+                authors.append(word.revision)
+    print(text)
+    print(authors)
 
 def printRevisionTrackAppearance(revision):
 
