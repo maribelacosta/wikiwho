@@ -540,7 +540,7 @@ def printRevision(revision):
                 #print word
                 #text = text + ' ' + unicode(word.value,'utf-8') + "@@" + str(word.revision) 
                 text.append(word.value)
-                authors.append(word.revision)
+                authors.append(word.author_name)
     print text
     print authors
 
