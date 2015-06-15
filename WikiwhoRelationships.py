@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 '''
 Created on Feb 20, 2013
 
@@ -64,7 +66,7 @@ def analyseArticle(file_name):
             revision_prev = revision_curr
 
             if (revision.sha1 == None):
-                revision.sha1 = Text.calculateHash(revision.text.encode("utf-8"))
+                revision.sha1 = Text.calculateHash(revision.text)
 
             if (revision.sha1 in spam):
                 vandalism = True
@@ -93,16 +95,15 @@ def analyseArticle(file_name):
                 # Some revisions don't have contributor.
                 if (revision.contributor != None):
                     revision_curr.contributor_id = revision.contributor.id
-                    revision_curr.contributor_name = revision.contributor.user_text.encode('utf-8')
-                    relation.author = revision.contributor.user_text.encode('utf-8')
+                    revision_curr.contributor_name = revision.contributor.user_text
+                    relation.author = revision.contributor.user_text
                 else:
                     revision_curr.contributor_id = 'Not Available ' + revision.id
                     revision_curr.contribur_name = 'Not Available ' + revision.id
                     relation.author = 'Not Available ' + revision.id
 
                 # Content within the revision.
-                text_curr = revision.text.encode('utf-8')
-                text_curr = text_curr.lower()
+                text_curr = revision.text.lower()
 
                 # Perform comparison.
                 vandalism = determineAuthorship(revision_curr, revision_prev, text_curr, relation)
@@ -727,7 +728,7 @@ def printRevisionTrackAppearance(revision):
                             changes.append("+(" + str(a)+")")
                             break
 
-                print(unicode(word.value,'utf-8') + "@@" + str(word.revision)  + "@@" + str(changes))
+                print(word.value + "@@" + str(word.revision)  + "@@" + str(changes))
                 text.append(word.value)
                 authors.append(word.revision)
 
@@ -742,7 +743,7 @@ def printRelationships(relations, order):
         if (vandalism):
             continue
         relation = relations[revision]
-        print(str(relation.revision) + "\t" + (relation.author).decode("utf-8")   + "\t" + str(relation.deleted) + "\t" + str(relation.revert) + "\t" + str(relation.reintroduced)  + "\t" + str(relation.redeleted) + "\t" + str(relation.added)  + "\t"  +  str(relation.total_tokens) + "\t" + str(relation.self_deleted) + "\t" + str(relation.self_revert) + "\t" + str(relation.self_reintroduced) + "\t" + str(relation.self_redeleted))
+        print(str(relation.revision) + "\t" + (relation.author) + "\t" + str(relation.deleted) + "\t" + str(relation.revert) + "\t" + str(relation.reintroduced)  + "\t" + str(relation.redeleted) + "\t" + str(relation.added)  + "\t"  +  str(relation.total_tokens) + "\t" + str(relation.self_deleted) + "\t" + str(relation.self_revert) + "\t" + str(relation.self_reintroduced) + "\t" + str(relation.self_redeleted))
 
 def printJSON(relations, order):
 
