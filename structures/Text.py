@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 '''
 Created on Feb 20, 2013
 
@@ -5,7 +7,7 @@ Created on Feb 20, 2013
 '''
 
 import hashlib
-from codecs import encode, decode
+from codecs import encode
 
 def calculateHash(text):
     encodedText = encode(text)
@@ -13,8 +15,7 @@ def calculateHash(text):
 
 
 def splitIntoParagraphs(text):
-    decodedText = decode(text)
-    paragraphs = decodedText.split("\n\n")
+    paragraphs = text.split("\n\n")
 
     return paragraphs
 

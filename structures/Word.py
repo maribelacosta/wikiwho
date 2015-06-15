@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 '''
 Created on Feb 20, 2013
 
@@ -21,16 +23,14 @@ class Word(object):
         self.deleted = []
         self.internal_id = 0
         self.used = []
-        
-    
+
+
     def __repr__(self):
         return str(id(self))
-    
-    
+
+
     def to_dict(self):
         word = {}
-        #word.update({'author' : {'id': self.author_id, 'username': self.author_name}})
         word.update({str(self.revision) : self.value})
-    
+
         return word
-    
