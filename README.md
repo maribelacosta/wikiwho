@@ -1,17 +1,18 @@
-wikiwho
+wikiwho for python 3
 =======
 An algorithm to identify authorship and editor interactions in Wiki revisioned content.
 
 Installation Requirements
 ========================
-WikiWho has been tested on Arch Linux running Python 3.4.3.
+This WikiWho branch has been tested on Arch Linux running Python 3.4.3.
 
 WikiWho utilizes the Wikimedia Utilities library to process the revisioned content extracted from Wikipedia.
 These functions can be downloaded from the official Wikimedia Utilities repository (under the MIT license) at the
 following link:
-* https://bitbucket.org/halfak/wikimedia-utilities
+* https://github.com/halfak/Mediawiki-Utilities
 
 Running wikiwho(Relationships)
+(Note: WikiWho.py is the original script, giving just provenance information. WikiwhoRelationships.py can provide the exact same authorship/provenance data, plus interactions, but might run slower due to the overhead of interaction calculation. We didn't test that yet.)
 ===============
 
 python WikiwhoRelationships.py
