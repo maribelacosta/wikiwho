@@ -46,9 +46,9 @@ gives the edit interactions produced at every revision to other revisions, up to
 
 Contact
 =======
-* Fabian Floeck: fabian.floeck[.]kit.edu
+* Fabian Floeck: fabian.floeck[.]gesis.org
 * Maribel Acosta: maribel.acosta[.]kit.edu
 
 License
 =======
-This work is licensed under GNU/GPL v2.
+This work is licensed under the MIT license.
