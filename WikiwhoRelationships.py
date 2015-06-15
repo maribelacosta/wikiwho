@@ -40,7 +40,6 @@ CURR_LENGTH = 1000
 FLAG = "move"
 UNMATCHED_PARAGRAPH = 0.0
 WORD_DENSITY = 10
-WORD_LEN = 100
 
 def analyseArticle(file_name):
     # Container of relationships.
