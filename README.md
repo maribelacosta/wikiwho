@@ -11,7 +11,7 @@ These functions can be downloaded from the official Wikimedia Utilities reposito
 following link:
 * https://github.com/halfak/Mediawiki-Utilities
 
-Running wikiwho(Relationships)
+Running WikiwhoRelationships.py
 ===============
 (Note: WikiWho.py is the original script, giving just provenance information. WikiwhoRelationships.py can provide the exact same authorship/provenance data, plus interactions, but might run slower due to the overhead of interaction calculation. We didn't test that yet.)
 
