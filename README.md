@@ -12,8 +12,10 @@ following link:
 * https://github.com/halfak/Mediawiki-Utilities
 
 Running wikiwho(Relationships)
-(Note: WikiWho.py is the original script, giving just provenance information. WikiwhoRelationships.py can provide the exact same authorship/provenance data, plus interactions, but might run slower due to the overhead of interaction calculation. We didn't test that yet.)
 ===============
+(Note: WikiWho.py is the original script, giving just provenance information. WikiwhoRelationships.py can provide the exact same authorship/provenance data, plus interactions, but might run slower due to the overhead of interaction calculation. We didn't test that yet.)
+
+How to run:
 
 python WikiwhoRelationships.py
 
@@ -41,9 +43,10 @@ gives the edit interactions produced at every revision to other revisions, up to
 
 Contact
 =======
-* Fabian Floeck: fabian.floeck[.]kit.edu
+* Fabian Floeck: fabian.floeck[.]gesis.org
 * Maribel Acosta: maribel.acosta[.]kit.edu
+
 
 License
 =======
-This work is licensed under GNU/GPL v2.
+This work is licensed under the MIT license.
