@@ -7,15 +7,16 @@ Created on Feb 20, 2013
 @author: Fabian Floeck
 '''
 
-from mw.xml_dump import Iterator as mwIterator
 from difflib import Differ
+from mw.xml_dump import Iterator as mwIterator
+from mw.xml_dump.functions import open_file
 from time import time
 
-from structures.Revision import Revision
+from structures import Text
 from structures.Paragraph import Paragraph
+from structures.Revision import Revision
 from structures.Sentence import Sentence
 from structures.Word import Word
-from structures import Text
 
 from etc.Relation import Relation
 
@@ -51,7 +52,7 @@ def analyseArticle(file_name):
     text_curr = None
 
     # Access the file.
-    dumpIterator = mwIterator.from_file(open(file_name))
+    dumpIterator = mwIterator.from_file(open_file(file_name))
 
     # Iterate over the pages.
     for page in dumpIterator:
