@@ -16,6 +16,13 @@ Running WikiwhoRelationships.py
 ===============
 (Note: WikiWho.py is the original script, giving just provenance information. WikiwhoRelationships.py can provide the exact same authorship/provenance data, plus interactions, but might run slower due to the overhead of interaction calculation. We didn't test that yet.)
 
+Expected data: 
+- the full revision history of one or a given set of wiki articles (basically everything that wikimedia utilities can process). It is here expected to be .xml, could also be .json, etc. if you parse it correctly. 
+
+- you can get xml for single articles [here](https://en.wikipedia.org/w/index.php?title=Special:Export&history). Or (more reliable, but only 50 revisions at a time) at the official API: [example call](https://en.wikipedia.org//w/api.php?rvcontinue=20150501221233%7C660323497&rvdir=newer&titles=Darmstadt&continue=&rvlimit=max&format=json&action=query&rvprop=content%7Cids%7Ctimestamp%7Csha1%7Ccomment%7Cflags%7Cuser%7Cuserid&prop=revisions) (note that you will have to use rvcontinue to get all revisions). Finally, the full history dump can be downloaded at the [WM dumps page](http://dumps.wikimedia.org/backup-index-bydb.html). Note that the dump is quite big for enwiki, i.e. not recommended just for testing. Use wm utilities to read the compressed files.    
+
+- It expects an XML dump of Wikipedia pages with revisions. You can obtain a data dump (e.g. for the English Wikipedia) or dump individual pages by using this site.
+
 How to run:
 
 python WikiwhoRelationships.py 
