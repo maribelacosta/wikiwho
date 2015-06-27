@@ -5,7 +5,7 @@ An algorithm to identify authorship and editor interactions in Wiki revisioned c
 Installation Requirements
 ========================
 WikiWho has been tested on Mac OS X and Debian GNU/Linux, running on Python 2.7. 
-(A python3 version can be found in this branch: https://github.com/maribelacosta/wikiwho/tree/python3)
+(A python3 version can be found in this branch: https://github.com/maribelacosta/wikiwho/tree/python3 It has however not  been extensively tested yet - stick to the master for now if you want reliability)
 
 WikiWho utilizes the Wikimedia Utilities library to process the revisioned content extracted from Wikipedia. 
 These functions can be downloaded from the official Wikimedia Utilities repository (under the MIT license) at the
