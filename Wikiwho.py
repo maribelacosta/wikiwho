@@ -19,7 +19,7 @@ from structures import Text
 from sys import argv,exit
 import getopt
 
-from copy import deepcopy
+
 
 # Hash tables.
 paragraphs_ht = {}
@@ -526,8 +526,8 @@ def printRevision(revision):
         #print hash_paragraph
         #text = ''
         
-        p_copy = deepcopy(revision.paragraphs[hash_paragraph])
-        paragraph = p_copy.pop(0)
+        para = revision.paragraphs[hash_paragraph]
+        paragraph = para[-1]
         
         #print paragraph.value
         #print len(paragraph.sentences)
