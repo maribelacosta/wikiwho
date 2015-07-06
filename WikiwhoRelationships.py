@@ -1,18 +1,6 @@
-Skip to content
-This repository  
-Pull requests
-Issues
-Gist
- @wikiwho
- Unwatch 8
-  Unstar 12
- Fork 5maribelacosta/wikiwho
- branch: master  wikiwho/WikiwhoRelationships.py
-maribelacosta 4 days ago Remove unnecessary deepcopy
-0 contributors
-RawBlameHistory     897 lines (697 sloc)  43.479 kB
 '''
 Created on Feb 20, 2013
+
 @author: Maribel Acosta 
 @author: Fabian Floeck 
 '''
@@ -907,5 +895,3 @@ if __name__ == '__main__':
     
 
     
-Status API Training Shop Blog About Help
-© 2015 GitHub, Inc. Terms Privacy Security Contact
