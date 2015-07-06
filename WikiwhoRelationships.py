@@ -679,11 +679,11 @@ def printRevision(revision):
     text = []
     authors = []
     for hash_paragraph in revision.ordered_paragraphs:
-        p_copy = deepcopy(revision.paragraphs[hash_paragraph])
-        paragraph = p_copy.pop(0)
+        para = revision.paragraphs[hash_paragraph]
+        paragraph = para[-1]
 
         for hash_sentence in paragraph.ordered_sentences:
-            sentence = paragraph.sentences[hash_sentence].pop(0)
+            sentence = paragraph.sentences[hash_sentence][-1]
 
             for word in sentence.words:
                 text.append(word.value)
