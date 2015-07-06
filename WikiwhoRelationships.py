@@ -739,7 +739,7 @@ def printRevision(revision):
         #print len(paragraph.sentences)
         for hash_sentence in paragraph.ordered_sentences:
             #print hash_sentence
-            sentence = paragraph.sentences[hash_sentence].pop(0)
+            sentence = paragraph.sentences[hash_sentence][-1]
             #print sentence.words
             
             for word in sentence.words:
@@ -759,14 +759,14 @@ def printRevisionTrackAppearance(revision):
         #print hash_paragraph
         #text = ''
         
-        p_copy = deepcopy(revision.paragraphs[hash_paragraph])
-        paragraph = p_copy.pop(0)
-        
+        para = revision.paragraphs[hash_paragraph]
+        paragraph = para[-1]
+      
         #print paragraph.value
         #print len(paragraph.sentences)
         for hash_sentence in paragraph.ordered_sentences:
             #print hash_sentence
-            sentence = paragraph.sentences[hash_sentence].pop(0)
+            sentence = paragraph.sentences[hash_sentence][-1]
             #print sentence.words
             
             for word in sentence.words:
