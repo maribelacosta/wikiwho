@@ -533,7 +533,7 @@ def printRevision(revision):
         #print len(paragraph.sentences)
         for hash_sentence in paragraph.ordered_sentences:
             #print hash_sentence
-            sentence = paragraph.sentences[hash_sentence].pop(0)
+            sentence = paragraph.sentences[hash_sentence][-1]
             #print sentence.words
             
             for word in sentence.words:
