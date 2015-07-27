@@ -19,11 +19,11 @@ def splitIntoParagraphs(text):
 def splitIntoSentences(text):
     p = text
 
-    p = p.replace('.', '.@@@@')
+    p = p.replace('. ', '.@@@@')
     p = p.replace('\n', '\n@@@@')
-    p = p.replace(';', ';@@@@')
-    p = p.replace('?', '?@@@@')
-    p = p.replace('!', '!@@@@')
+    p = p.replace('; ', ';@@@@')
+    p = p.replace('? ', '?@@@@')
+    p = p.replace('! ', '!@@@@')
     #p = p.replace('.{', '.||{')
     #p = p.replace('!{', '!||{')
     #p = p.replace('?{', '?||{')
