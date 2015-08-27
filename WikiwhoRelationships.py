@@ -533,7 +533,7 @@ def analyseSentencesInParagraphs(unmatched_paragraphs_curr, unmatched_paragraphs
                                 #print "relation.revert", word_prev.value, word_prev.deleted, relation.revert, revision_curr.wikipedia_id
                                         
                                 if (revision_prev.wikipedia_id not in word_prev.used):
-                                    if (elem in revisions.keys()):
+                                    if (word_prev.revision in revisions.keys()):
                                         if (revisions[word_prev.revision].contributor_id != revision_curr.contributor_id):
                                             if (word_prev.revision in relation.reintroduced.keys()):
                                                 relation.reintroduced.update({word_prev.revision : relation.reintroduced[word_prev.revision] + 1 })
