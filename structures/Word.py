@@ -17,10 +17,10 @@ class Word(object):
         self.value = ''       # The word (simple text).
         self.matched = False  #
         self.length = 0
-        self.freq = []
-        self.deleted = []
+        self.freq = []       # All revisions where the word was added, minus the original (self.revision), i.e. all revisions where it was "re-added" (don't ask me why this is called freq, it just happened) .
+        self.deleted = []       # All revisions where the word was deleted
         self.internal_id = 0
-        self.used = []
+        self.used = []       # All revisions where the word was present
         
     
     def __repr__(self):
