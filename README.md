@@ -26,7 +26,7 @@ Expected data:
 
 How to run:
 
-python WikiwhoRelationships.py 
+    python WikiwhoRelationships.py 
 
 parameters: 
 
