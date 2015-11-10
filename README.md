@@ -36,6 +36,8 @@ parameters:
 
 -r [\<revid\> | all] --> what revision to show. revID or "all" for -o a, revID only for -o r 
 
+Examples
+===============
 
 example A:
 
@@ -49,6 +51,15 @@ python WikiwhoRelationships.py -i Randomarticle.xml -o r -r 5
 
 gives the edit interactions produced at every revision to other revisions, up to revision number 5 (has to be an actual revision id) of Randomarticle
 
+"Finger_Lakes3" dummy article example:
+
+run 
+
+python WikiwhoRelationships.py -i Finger_Lakes3_dummy.xml -o a -r 27  
+
+the xml file can be found in the "example files" folder. 27 is the last revision, you can also run it for all others. 
+check the Finger_Lakes3_explained.xlsx in the same folder to get an explanation of the results. 
+you can also try the -o r argument, the results are also displayed in the xlsx 
 
 
 
