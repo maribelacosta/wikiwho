@@ -30,7 +30,7 @@ How to run:
 
 parameters: 
 
-**-i** \[source_file_name.xml\] (complete history dump XML of one article)
+**-i \[source_file_name.xml\]** (complete history dump XML of one article)
 
 **-o [a | r]** --> what type of output to produce --> **a** = authorship for all tokens of a revision | **r** = interactions for every revision with each other revision in the past. I.e., this will list you all revisions and for each type of interaction we defined (delete, undelete, reintro, ..) the revisions that were target of that interaction and the number of tokens that interaction included. We will soon provide code that will spit put a more aggregated version of this as an editor-editor network. Yet, from the output available right now, you can already construct such a network yourself by summing up the positive and/or negative interactions between two editors over the whole revision history or a part of it.
 
