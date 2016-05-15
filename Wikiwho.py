@@ -32,7 +32,7 @@ PREVIOUS_LENGTH = 1000
 CURR_LENGTH = 1000
 FLAG = "move"   
 UNMATCHED_PARAGRAPH = 0.0
-WORD_DENSITY = 10
+WORD_DENSITY = 12
 WORD_LEN = 100
 
 def analyseArticle(file_name):
@@ -71,8 +71,9 @@ def analyseArticle(file_name):
                 pass
             else:
                 if (revision_prev.length > PREVIOUS_LENGTH) and (len(revision.getText()) < CURR_LENGTH) and (((len(revision.getText())-revision_prev.length)/float(revision_prev.length)) <= CHANGE_PERCENTAGE):
+                    print "VANDALISM: CHANGE PERCETANGE"
                     vandalism = True
-                    revision_curr = revision_prev
+             
             
             #if (vandalism):
                 #print "---------------------------- FLAG 1"
@@ -113,15 +114,22 @@ def analyseArticle(file_name):
                     revision_order.append((revision_curr.wikipedia_id, False))
                     
                 else:
+                    #print "detected vandalism in here ...................................."
                     #print "---------------------------- FLAG 2"
                     #print revision.getId()
                     #print revision.getText()
                     #print
-                    revision_curr = revision_prev
                     spam.append(revision.getSha1())
                     revision_order.append((revision_curr.wikipedia_id, True))
+                    revision_curr = revision_prev
+                    
+            else:
+			#	revision.getText()
+            #    #print
+                spam.append(revision.getSha1())
+                revision_order.append((revision_curr.wikipedia_id, True))
+                revision_curr = revision_prev
            
-    
     return (revisions, revision_order)
             
 def determineAuthorship(revision_curr, revision_prev, text_curr):
@@ -143,6 +151,7 @@ def determineAuthorship(revision_curr, revision_prev, text_curr):
         
         #TODO: SPAM detection
         if (len(unmatched_paragraphs_curr)/float(len(revision_curr.ordered_paragraphs)) > UNMATCHED_PARAGRAPH):
+            #print "VANDALISM: UNMATCHED_PARAGRAPH"
             possible_vandalism = True
     
         # Analysis of words in unmatched sentences (diff of both texts).
@@ -442,6 +451,7 @@ def analyseWordsInSentences(unmatched_sentences_curr, unmatched_sentences_prev, 
         density = Text.computeAvgWordFreq(text_curr, revision_curr.wikipedia_id)
 
         if (density > WORD_DENSITY):
+            print "VANDALISM: WORD DENSITY", density
             return (matched_words_prev, possible_vandalism)
         else:
             possible_vandalism = False
