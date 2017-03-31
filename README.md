@@ -1,3 +1,6 @@
+# This repo will not not be updated anymore, please see https://github.com/wikiwho/WikiWho from now on
+
+
 wikiwho
 =======
 An algorithm to identify authorship and editor interactions in Wiki revisioned content.
